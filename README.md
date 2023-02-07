@@ -1,5 +1,5 @@
 # SpotifyMusicMixer - Create a Spotify playlist based on most common genres
-This project is a site where two users can create a shared genre-based Spotify playlist based on their most common genres.
+This project is a site where two users can create a shared genre-based Spotify playlist based on their most common genres. The playlist consists of a genre-appropriate mix of the users current top 50 songs.
 ## Setup
 Currently, this server can be run locally. To do this:
 1. Create an account on the [Spotify Developer Site](https://developer.spotify.com/dashboard/) and create an application.
