@@ -1,0 +1,129 @@
+body,html{
+    margin:  0;
+    padding: 0;
+    background-color: #838383;
+}
+
+header{
+    height: 50px;
+    background-color: #2d2d2d;
+}
+
+h1{
+    text-align: center;
+    margin-top: 0;
+    line-height: 50px;
+    font-family: 'Bahnschrift SemiBold', serif;
+    color: #39ca74;
+}
+
+.mainbuttons{
+    text-align: center;
+    height: 52px;
+    background-color: #3d3d3d;
+}
+
+#authenticate{
+    font-family: 'Bahnschrift SemiBold', serif;
+    background-color: #39ca74;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+    transition-duration: 0.15s;
+}
+
+#authenticate:hover{
+    background-color: #3b9f67;
+}
+
+#invite{
+    font-family: 'Bahnschrift SemiBold', serif;
+    background-color: #39ca74;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+    transition-duration: 0.15s;
+}
+
+#invite:hover{
+    background-color: #3b9f67;
+}
+
+#join{
+    font-family: 'Bahnschrift SemiBold', serif;
+    background-color: #39ca74;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+    transition-duration: 0.15s;
+}
+
+#join:hover{
+    background-color: #3b9f67;
+}
+
+#create{
+    font-family: 'Bahnschrift SemiBold', serif;
+    background-color: #39ca74;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+    transition-duration: 0.15s;
+}
+
+#create:hover{
+    background-color: #3b9f67;
+}
+
+.InviteJoin{
+    text-align: center;
+}
+
+#textbox{
+    font-family: 'Bahnschrift SemiBold', serif;
+    margin: 12px;
+}
+
+#submitButton{
+    font-family: 'Bahnschrift SemiBold', serif;
+    background-color: #39ca74;
+    border: none;
+    color: white;
+    transition-duration: 0.15s;
+    font-size: 14px;
+}
+
+#submitButton:hover{
+    background-color: #3b9f67;
+}
+
+#code{
+    font-family: 'Bahnschrift SemiBold', serif;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.innercontent{
+    font-family: 'Bahnschrift SemiBold', serif;
+    padding: 10px 5px;
+    background-color: #707070;
+    position: relative;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    font-size: 17px;
+}
+
+#createdPlaylist{
+    text-align: center;
+}
