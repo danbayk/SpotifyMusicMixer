@@ -3,7 +3,7 @@ This project is a site where two users can create a shared genre-based Spotify p
 ## Setup
 Currently, this server can be run locally. To do this:
 1. Create an account on the [Spotify Developer Site](https://developer.spotify.com/dashboard/) and create an application.
-2. Set http://localhost:8888/auth/callback as the redirect URI in the application settings.
+2. Set http://localhost:8888/callback as the redirect URI in the application settings.
 3. Create a `.env` file in the root of the project and include the following three variables:
 ````
 HOST=http://localhost:8888
