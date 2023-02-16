@@ -1,13 +1,13 @@
 const socket = io();
-var mySocketID;
-var partnerSocketID;
-var roomCode;
-var listLength;
-var songs = [];
-var genres = [];
-var allSongs = [];
-var display_name;
-var partner_display_name;
+let mySocketID;
+let partnerSocketID;
+let roomCode;
+let listLength;
+let songs = [];
+let genres = [];
+let allSongs = [];
+let display_name;
+let partner_display_name;
 
 // Client-size socket IO events
 socket.on('connect', () => {

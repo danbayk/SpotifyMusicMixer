@@ -7,13 +7,13 @@ const SpotifyWebApi = require('spotify-web-api-node');
 require('ejs');
 require('dotenv').config();
 
-var currSocketID;
-var connections = 0;
-var users = [];
-var rooms = [];
+let currSocketID;
+let connections = 0;
+let users = [];
+let rooms = [];
 
 // Scopes
-var scopes = [
+const scopes = [
         'user-read-email',
         'user-read-private',
         'playlist-read-collaborative',
@@ -30,7 +30,7 @@ var scopes = [
     clientSecret = process.env.CLIENT_SECRET
 
 // Create SpotifyWebAPI object
-var spotifyApi = new SpotifyWebApi({
+const spotifyApi = new SpotifyWebApi({
     redirectUri: redirectUri,
     clientId: clientId,
     clientSecret: clientSecret
@@ -114,7 +114,7 @@ app.get('/login', (req, res) => {
 // Get authorization code on callback and get/set token, then pass token to GetSongs()
 app.get('/callback', (req, res) => {
     res.render("index");
-    var code = req.query.code;
+    const code = req.query.code;
     spotifyApi.authorizationCodeGrant(code).then(
         function(data) {
             var access_token = data.body['access_token'];
@@ -131,7 +131,7 @@ function createPlaylist(user, requestGenres, songs, room, display_name, partner_
     spotifyApi.setAccessToken(user.token);
 
     // Old function
-    var list = [];
+    let list = [];
     for(let i = 0; i < songs.length; i++)
     {
         spotifyApi.getArtist(songs[i].artistID)
@@ -266,5 +266,6 @@ function SortGenres(list)
 }
 
 // Run server
-server.listen(8888);
+let port = process.env.PORT;
+server.listen(port);
 console.log("Listening on 8888");
