@@ -1,3 +1,3 @@
 function AuthenticateUser() {
-    window.location.href = "http://localhost:8888/login";
+    window.location.href = "https://spotify-music-mixer.herokuapp.com/login";
 }

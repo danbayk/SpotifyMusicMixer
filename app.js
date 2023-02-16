@@ -25,7 +25,7 @@ const scopes = [
         'user-top-read',
         'user-follow-modify'
     ],
-    redirectUri = 'http://localhost:8888/callback',
+    redirectUri = 'https://spotify-music-mixer.herokuapp.com/callback',
     clientId = process.env.CLIENT_ID,
     clientSecret = process.env.CLIENT_SECRET
 
