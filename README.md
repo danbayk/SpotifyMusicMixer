@@ -6,7 +6,7 @@ Currently, this server can be run locally. To do this:
 2. Set http://localhost:8888/callback as the redirect URI in the application settings.
 3. Create a `.env` file in the root of the project and include the following three variables:
 ````
-HOST=http://localhost:8888
+HOST=http://localhost:8888/callback
 CLIENT_ID=<client_id>
 CLIENT_SECRET=<client_secret>
 ````
