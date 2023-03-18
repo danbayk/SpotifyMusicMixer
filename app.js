@@ -8,8 +8,9 @@ require('dotenv').config();
 
 let currSocketID;
 let connections = 0;
-let users = [];
-let rooms = [];
+const sockets = [];
+const users = [];
+const rooms = [];
 
 // Scopes
 const scopes = [
@@ -24,7 +25,7 @@ const scopes = [
         'user-top-read',
         'user-follow-modify'
     ],
-    redirectUri = 'https://spotify-music-mixer.herokuapp.com/callback',
+    redirectUri = process.env.HOST,
     clientId = process.env.CLIENT_ID,
     clientSecret = process.env.CLIENT_SECRET
 
@@ -46,8 +47,9 @@ app.use(express.static(path.join(__dirname, "views")));
 
 // Server-side socket IO events, more detailed event descriptions in main.js
 io.on('connection', socket => {
-
-    currSocketID = socket.id;
+    if(sockets.length === 0) {
+        sockets.push(socket.id)
+    }
     console.log(socket.id);
     connections++;
 
@@ -117,7 +119,7 @@ app.get('/callback', (req, res) => {
     spotifyApi.authorizationCodeGrant(code).then(
         function(data) {
             var access_token = data.body['access_token'];
-            GetSongs(currSocketID, access_token);
+            GetSongs(sockets.pop(), access_token);
         },
         function(err) {
             console.log(err);
@@ -128,22 +130,17 @@ app.get('/callback', (req, res) => {
 // Get user's top genres and create a playlist
 function createPlaylist(user, requestGenres, songs, room, display_name, partner_display_name) {
     spotifyApi.setAccessToken(user.token);
-
-    // Old function
     let list = [];
-    for(let i = 0; i < songs.length; i++)
-    {
+    for(let i = 0; i < songs.length; i++) {
         spotifyApi.getArtist(songs[i].artistID)
             .then(function(data) {
-                if(IncludesElement(data.body.genres, requestGenres) === true)
-                {
+                if(IncludesElement(data.body.genres, requestGenres) === true) {
                     list.push(songs[i].songURI);
                 }
             }, function(err) {
                 console.error(err);
             });
     }
-
     spotifyApi.createPlaylist(display_name + '\'s and ' + partner_display_name + '\'s playlist', {'public': true })
         .then(function(data) {
             addSongsToPlaylist(data.body.owner.id, data.body.id, list, user.token, room);
@@ -165,55 +162,50 @@ function addSongsToPlaylist(userID, playlistID, songURIsToAdd, token, room) {
 }
 
 // Return true if arrays have a common element
-function IncludesElement(arr1, arr2)
-{
-    for(let i = 0; i < arr1.length; i++)
-    {
-        for(let j = 0; j < arr2.length; j++)
-        {
-            if(arr1[i] === arr2[j])
-            {
-                return true;
-            }
-        }
-    }
-    return false;
+function IncludesElement(arr1, arr2) {
+    return arr1.some(x => arr2.includes(x))
 }
 
 // Get user given their current socket ID
 function getUserGivenID(socketID) {
-    for(let i = 0; i < users.length; i++)
-    {
-        if(users[i].socketID === socketID)
-        {
+    for(let i = 0; i < users.length; i++) {
+        if(users[i].socketID === socketID) {
             return users[i];
         }
     }
 }
 
 // Get a users top 50 songs
-function GetSongs(socketID, access_token){
-    // push new user to array
-    users.push({socketID: currSocketID, token: access_token});
+function GetSongs(socketID, access_token) {
+    // push new user to array, link a socket ID with a token for later use
+    users.push({socketID: socketID, token: access_token});
     spotifyApi.setAccessToken(access_token);
     let songs = [];
-    var artists = [];
+    let artists = [];
+    let genres = [];
     spotifyApi.getMyTopTracks({limit: 50})
         .then(function(data) {
-            var maxLength = data.body.items.length;
-            for(let i = 0; i < maxLength; i++)
-            {
+            for(let i = 0; i < data.body.items.length; i++) {
                 songs.push({title: data.body.items[i].name, artistID: data.body.items[i].artists[0].id, songURI: data.body.items[i].uri});
                 artists.push(data.body.items[i].artists[0].id);
-                if(i === maxLength - 1)
-                {
+                if(i === data.body.items.length - 1) {
                     spotifyApi.getMe()
                         .then(function(data) {
                             io.to(socketID).emit('getSongs', {songs: songs, display_name: data.body.display_name});
                         }, function(err) {
                             console.log(err);
                         });
-                    getArtists(socketID, artists, access_token);
+                    spotifyApi.getArtists(artists)
+                    .then(function(data) {
+                        for(let i = 0; i < data.body.artists.length; i++) {
+                            for(let x = 0; x < data.body.artists[i].genres.length; x++) {
+                                genres.push(data.body.artists[i].genres[x]);
+                            }
+                        }
+                        io.to(socketID).emit('getGenres', SortGenres(genres));
+                    }, function(err) {
+                        console.error(err);
+                    });
                 }
             }
         }, function(err) {
@@ -221,28 +213,8 @@ function GetSongs(socketID, access_token){
         });
 }
 
-// Get user's list of genres based on the geners of their top artist
-function getArtists(socketID, artists, token) {
-    let genres = [];
-    spotifyApi.setAccessToken(token);
-    spotifyApi.getArtists(artists)
-        .then(function(data) {
-            for(let i = 0; i < data.body.artists.length; i++)
-            {
-                for(let x = 0; x < data.body.artists[i].genres.length; x++)
-                {
-                    genres.push(data.body.artists[i].genres[x]);
-                }
-            }
-            io.to(socketID).emit('getGenres', SortGenres(genres));
-        }, function(err) {
-            console.error(err);
-        });
-}
-
 // Sort array with most frequent elements first
-function SortGenres(list)
-{
+function SortGenres(list) {
     var frequency = {}, value;
     for(var i = 0; i < list.length; i++) {
         value = list[i];
@@ -265,6 +237,6 @@ function SortGenres(list)
 }
 
 // Run server
-let port = process.env.PORT;
+let port = 8888;
 server.listen(port);
 console.log("Listening on 8888");

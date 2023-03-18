@@ -13,7 +13,7 @@ h1{
     text-align: center;
     margin-top: 0;
     line-height: 50px;
-    font-family: 'Bahnschrift SemiBold', serif;
+    font-family: 'Geneva', sans-serif;
     color: #39ca74;
 }
 
@@ -24,7 +24,7 @@ h1{
 }
 
 #authenticate{
-    font-family: 'Bahnschrift SemiBold', serif;
+    font-family: 'Geneva', sans-serif;
     background-color: #39ca74;
     border: none;
     color: white;
@@ -39,7 +39,7 @@ h1{
 }
 
 #invite{
-    font-family: 'Bahnschrift SemiBold', serif;
+    font-family: 'Geneva', sans-serif;
     background-color: #39ca74;
     border: none;
     color: white;
@@ -54,7 +54,7 @@ h1{
 }
 
 #join{
-    font-family: 'Bahnschrift SemiBold', serif;
+    font-family: 'Geneva', sans-serif;
     background-color: #39ca74;
     border: none;
     color: white;
@@ -69,7 +69,7 @@ h1{
 }
 
 #create{
-    font-family: 'Bahnschrift SemiBold', serif;
+    font-family: 'Geneva', sans-serif;
     background-color: #39ca74;
     border: none;
     color: white;
@@ -88,12 +88,12 @@ h1{
 }
 
 #textbox{
-    font-family: 'Bahnschrift SemiBold', serif;
+    font-family: 'Geneva', sans-serif;
     margin: 12px;
 }
 
 #submitButton{
-    font-family: 'Bahnschrift SemiBold', serif;
+    font-family: 'Geneva', sans-serif;
     background-color: #39ca74;
     border: none;
     color: white;
@@ -106,14 +106,14 @@ h1{
 }
 
 #code{
-    font-family: 'Bahnschrift SemiBold', serif;
+    font-family: 'Geneva', sans-serif;
     text-align: center;
     margin-top: 10px;
     font-size: 20px;
 }
 
 .innercontent{
-    font-family: 'Bahnschrift SemiBold', serif;
+    font-family: 'Geneva', sans-serif;
     padding: 10px 5px;
     background-color: #707070;
     position: relative;

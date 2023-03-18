@@ -92,15 +92,13 @@ socket.on('roomError', () => {
 // Generate code and join room
 function InviteButton() {
     roomCode = Math.floor(1000 + Math.random() * 9000).toString();
-    if(document.getElementById('code') === null)
-    {
+    if(document.getElementById('code') === null) {
         let code = document.createElement('h3');
         code.textContent = "Your invite code is: " + roomCode;
         code.id = 'code';
         document.getElementById('InviteJoin').append(code);
     }
-    if(document.getElementById('textbox') != null)
-    {
+    if(document.getElementById('textbox') != null) {
         document.getElementById('textbox').remove();
         document.getElementById('submitButton').remove();
     }
@@ -112,8 +110,7 @@ function InviteButton() {
 
 // Join button
 function JoinButton() {
-    if(document.getElementById('textbox') === null)
-    {
+    if(document.getElementById('textbox') === null) {
         let textbox = document.createElement('input');
         textbox.setAttribute('type', 'text');
         textbox.id = 'textbox';
@@ -126,8 +123,7 @@ function JoinButton() {
         submitButton.addEventListener('click', () => SubmitButton(document.getElementById('textbox').value));
         document.getElementById('InviteJoin').append(submitButton);
     }
-    if(document.getElementById('code') != null)
-    {
+    if(document.getElementById('code') != null) {
         document.getElementById('code').remove();
     }
 }
@@ -140,18 +136,14 @@ function SubmitButton(code) {
 // Create playlist button
 function CreatePlaylist() {
     let newPlaylistGenres = [];
-    for(let i = 0; i < listLength; i++)
-    {
-        if(document.getElementById(i).checked)
-        {
+    for(let i = 0; i < listLength; i++) {
+        if(document.getElementById(i).checked) {
             newPlaylistGenres.push(document.getElementById(i).name);
         }
     }
     console.log(newPlaylistGenres.length);
-    if(newPlaylistGenres.length === 0)
-    {
-        if(document.getElementById('code') === null)
-        {
+    if(newPlaylistGenres.length === 0) {
+        if(document.getElementById('code') === null) {
             let errorMessage = document.createElement('h3');
             errorMessage.textContent = "No genres selected!";
             errorMessage.id = 'code';
@@ -172,8 +164,7 @@ function CreateElements(list) {
     usersLabel.textContent = 'Yours and ' + partner_display_name + '\'s common genres (sorted most common to least common):';
     newDiv.append(usersLabel);
     document.getElementById('InviteJoin').append(newDiv);
-    for(let i = 0; i < list.length; i++)
-    {
+    for(let i = 0; i < list.length; i++) {
         let newDiv = document.createElement('div');
         newDiv.setAttribute('class', 'innercontent');
         let newCheckbox = document.createElement('input');
